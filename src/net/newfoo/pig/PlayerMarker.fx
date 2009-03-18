@@ -40,8 +40,13 @@ public class PlayerMarker {
     /** Used to place the marker when the current turn is player1's turn */
     public-init var player1Spot: Node;
 
+    public-init var player1Label: Node;
+
     /** Used to place the marker when the current turn is player2's turn */
     public-init var player2Spot: Node;
+
+    public-init var player2Label: Node;
+
 
     var transform = Scale {
         x: .8,
@@ -54,11 +59,11 @@ public class PlayerMarker {
         if (isPlayerOne) {
             player1Spot.visible = true;
             player2Spot.visible = false;
-            swap(player1Spot, player2Spot);
+            swap(player1Label, player2Label);
         } else {
             player1Spot.visible = false;
             player2Spot.visible = true;
-            swap(player2Spot, player1Spot);
+            swap(player2Label, player1Label);
         }
 }
 

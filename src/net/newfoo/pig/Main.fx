@@ -1,14 +1,12 @@
-/*
- * NewMain.fx
- *
- * Created on Mar 17, 2009, 4:20:48 PM
- */
-
 package net.newfoo.pig;
 
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
+/**
+ * The main controller that is responsibile for wiring up the design
+ * to the game logic, control logic and effects.
+ */
 class Controller {
     var ui = DesignerBoardAdapter{
     }
@@ -79,6 +77,8 @@ class Controller {
 
         playerMarker = PlayerMarker {
             group: ui.playerMarker
+            player1Label: ui.player1Name
+            player2Label: ui.player2Name
             isPlayerOne: bind game.isPlayerOne
         }
     }

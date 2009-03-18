@@ -169,29 +169,9 @@ public class DesignerBoardAdapter extends CustomNode {
             content: [
                 boardGroup,
                 gameOverDialog,
-
-/*                board.SUN,
-             //   sunDial,
-                board.green_plate,
-                board.grass,
-                board.LOGO2,
-                board.Big_Pig,
-                board.small_pig,
-                playerMarker,
-//                board.player_2_area,
-                board.player_2_name,
-//                board.player_1_board,
-                board.player_1_name,
-                board.dice_table,
-                board.control
-                rollButton,
-                kickButton,
-                punchButton,
-                holdButton,
-                board.Dice_display,
-                sides,
-                gameOverDialog */
             ]
+            // the original design is off to the side, so we need to
+            // bring it into view by translating it
             translateX: -815
             translateY: -120
         };
