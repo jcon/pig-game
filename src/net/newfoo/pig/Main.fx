@@ -8,9 +8,6 @@ package net.newfoo.pig;
 
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.Group;
-import javafx.scene.text.Text;
-import javafx.scene.text.Font;
 
 class Controller {
     var ui = DesignerBoardAdapter{
@@ -31,7 +28,6 @@ class Controller {
     }
     var player1Score : ScoreControl;
     var player2Score : ScoreControl;
-    //    var turnScore : ScoreControl;
     var rollButton: Button;
     var holdButton: Button;
     var yesButton : Button;
@@ -50,10 +46,7 @@ class Controller {
             text: ui.player2ScoreText;
          }
          player2Score.value = 0;
-/*
-         turnScore = ScoreControl {
-         group: ui.turnScore
-         } */
+
 
         rollButton = Button {
             group: ui.rollButton
@@ -86,8 +79,6 @@ class Controller {
 
         playerMarker = PlayerMarker {
             group: ui.playerMarker
-            player1: ui.player1Name
-            player2: ui.player2Name
             isPlayerOne: bind game.isPlayerOne
         }
     }

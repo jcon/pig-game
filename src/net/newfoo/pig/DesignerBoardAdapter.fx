@@ -18,32 +18,40 @@ import javafx.animation.Timeline;
 import javafx.scene.effect.PerspectiveTransform;
 
 /**
+ * Provides an adapter for the standard UI Stubs generated from production suite.
+ * The adapter makes it easier to work with designs that aren't ordered
+ * optimally for a program to modify (but are ordered optimally for the designer!).
+ *
+ * A more robust adapter could make it easier for the rest of the game to work
+ * with the design by providing a simplified and ordered interface.
+ *
  * @author jconnell
  */
 public class DesignerBoardAdapter extends CustomNode {
-    var board = DesignerBoardUI{ }
+    var board = DesignerBoardUI{
+    }
 
-    public var gameOverDialog: Group;
-    public var pigWinsScore: Text;
-    public var pigWinsText: Text;
-    public var holdButton: Group; //
-    public var playerMarker: Group; //
-	public var player1Score: Group;
-    public var player1ScoreText: Text; //
-    public var player1Name: Group; //
-    public var player1NameText: Text;
-	public var player2Score: Group;
-    public var player2ScoreText: Text; //
-    public var player2Name: Group; //
-    public var player2NameText: Text;
-    public var rollButton: Group; //
-    public var kickButton: Group; //
-    public var punchButton: Group; //
-	public var sides: Group; //
-    public var turnScore: Group; //x
-    public var yesButton: Group; //
+    public-read var gameOverDialog: Group;
+    public-read var pigWinsScore: Text;
+    public-read var pigWinsText: Text;
+    public-read var holdButton: Group;
+    public-read var playerMarker: Group;
+	public-read var player1Score: Group;
+    public-read var player1ScoreText: Text;
+    public-read var player1Name: Group;
+    public-read var player1NameText: Text;
+	public-read var player2Score: Group;
+    public-read var player2ScoreText: Text;
+    public-read var player2Name: Group;
+    public-read var player2NameText: Text;
+    public-read var rollButton: Group;
+    public-read var kickButton: Group;
+    public-read var punchButton: Group;
+	public-read var sides: Group;
+    public-read var turnScore: Group;
+    public-read var yesButton: Group;
 
-    public var boardGroup: Group;
+    public-read var boardGroup: Group;
 
     init {
         rollButton = createButton(board.rollButton, board.buttonHovered, board.buttonPressed);
@@ -100,7 +108,7 @@ public class DesignerBoardAdapter extends CustomNode {
             ]
         };
 
-        var rotateSun = TranslateTransition {
+        var risingSun = TranslateTransition {
             repeatCount: Timeline.INDEFINITE
             autoReverse: true
             toY: -15
@@ -108,9 +116,9 @@ public class DesignerBoardAdapter extends CustomNode {
             duration: 8s
             node: board.sun_dial;
         }
-        rotateSun.playFromStart();
+        risingSun.playFromStart();
 
-        var bigNoseTransition = SequentialTransition {
+        var bigNoseWiggle = SequentialTransition {
             repeatCount: Timeline.INDEFINITE
             node: board.big_pig_nose;
             content: [
@@ -120,17 +128,19 @@ public class DesignerBoardAdapter extends CustomNode {
                 TranslateTransition {
                     repeatCount: 4
                     autoReverse: true
-                    toY: -3, byY: 1
-                    toX: -3, byX: 1
+                    toY: -3,
+                    byY: 1
+                    toX: -3,
+                    byX: 1
                     duration: 300ms
                     node: board.big_pig_nose;
                 }
 
             ]
         };
-        bigNoseTransition.playFromStart();
+        bigNoseWiggle.playFromStart();
 
-        var smallNoseTransition = SequentialTransition {
+        var smallNoseWiggle = SequentialTransition {
             repeatCount: Timeline.INDEFINITE
             node: board.big_pig_nose;
             content: [
@@ -140,15 +150,17 @@ public class DesignerBoardAdapter extends CustomNode {
                 TranslateTransition {
                     repeatCount: 4
                     autoReverse: true
-                    toY: -2.5, byY: 1
-                    toX: 2.5, byX: 1
+                    toY: -2.5,
+                    byY: 1
+                    toX: 2.5,
+                    byX: 1
                     duration: 300ms
                     node: board.small_pig_nose;
                 }
 
             ]
         };
-        smallNoseTransition.playFromStart();
+        smallNoseWiggle.playFromStart();
 
     }
 
@@ -188,7 +200,9 @@ public class DesignerBoardAdapter extends CustomNode {
     public function rollDice( die:Node ) {
         var rotateDie = RotateTransition {
             duration: 150ms
-            byAngle: 36, fromAngle: 0, toAngle: 360
+            byAngle: 36, 
+            fromAngle: 0,
+            toAngle: 360
             repeatCount: 4
             node: die
         }
@@ -233,20 +247,22 @@ public class DesignerBoardAdapter extends CustomNode {
     function align( target:Node, dest:Node ) {
         var destBounds = dest.boundsInScene;
         var targetBounds = target.boundsInScene;
-/*
+        /*
         if (dest.translateX != 0 or dest.translateY != 0) {
-            println("**** Before x:{dest.translateX}: y:{dest.translateY}");
-        }
-        if (target.translateX != 0 or target.translateY != 0) {
-            println("**** Target x:{target.translateX}: y:{target.translateY}");
-        }
-        println("*** Target: ({targetBounds.minX}, {targetBounds.minY})");
-*/
+         println("**** Before x:{dest.translateX}: y:{dest.translateY}");
+         }
+         if (target.translateX != 0 or target.translateY != 0) {
+         println("**** Target x:{target.translateX}: y:{target.translateY}");
+         }
+         println("*** Target: ({targetBounds.minX}, {targetBounds.minY})");
+         */
         dest.translateX = (targetBounds.minX - destBounds.minX) - dest.translateX;
         dest.translateY = dest.translateY + (targetBounds.minY - destBounds.minY);
 
 
 //        println("Translating x:{dest.translateX}: y:{dest.translateY}");
+
+
     }
 
 }
