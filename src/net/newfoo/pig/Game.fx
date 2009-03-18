@@ -27,9 +27,11 @@ public class Game {
         }
         afterRoll(r);
         if (isPlayerOne and turnScore + player1Score >= 100) {
+            player1Score = turnScore + player1Score;
             gameOver(true);
             return false;
         } else if (not isPlayerOne and turnScore + player2Score >= 100) {
+            player2Score = turnScore + player2Score;
             gameOver(false);
             return false;
         } else {

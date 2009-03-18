@@ -20,10 +20,13 @@ class Controller {
 
         gameOver: function( player1Wins:Boolean ) {
             println("Game over Player {if (player1Wins) 1 else 2}");
+            ui.pigWinsScore.content = "{game.player1Score} vs. {game.player2Score}";
+            var name = if (player1Wins) ui.player1NameText.content else ui.player2NameText.content;
+            ui.pigWinsText.content = "{name} Wins!";
             rollButton.disable = true;
             holdButton.disable = true;
             ui.gameOverDialog.visible = true;
-
+            ui.boardGroup.opacity = .4;
         }
     }
     var player1Score : ScoreControl;
@@ -37,7 +40,7 @@ class Controller {
     init {
         hideSides();
 
-         ui.gameOverDialog.visible = true;
+         ui.gameOverDialog.visible = false;
          player1Score = ScoreControl {
             text: ui.player1ScoreText;
          }
@@ -76,6 +79,7 @@ class Controller {
             action: function() : Void {
                 game.reset();
                 updateScores();
+                ui.boardGroup.opacity = 1;
                 ui.gameOverDialog.visible = false;
             }
         };

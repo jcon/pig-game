@@ -24,20 +24,26 @@ public class DesignerBoardAdapter extends CustomNode {
     var board = DesignerBoardUI{ }
 
     public var gameOverDialog: Group;
+    public var pigWinsScore: Text;
+    public var pigWinsText: Text;
     public var holdButton: Group; //
     public var playerMarker: Group; //
 	public var player1Score: Group;
     public var player1ScoreText: Text; //
     public var player1Name: Group; //
+    public var player1NameText: Text;
 	public var player2Score: Group;
     public var player2ScoreText: Text; //
     public var player2Name: Group; //
+    public var player2NameText: Text;
     public var rollButton: Group; //
     public var kickButton: Group; //
     public var punchButton: Group; //
 	public var sides: Group; //
     public var turnScore: Group; //x
     public var yesButton: Group; //
+
+    public var boardGroup: Group;
 
     init {
         rollButton = createButton(board.rollButton, board.buttonHovered, board.buttonPressed);
@@ -46,8 +52,10 @@ public class DesignerBoardAdapter extends CustomNode {
         holdButton = createButton(board.holdButton, board.holdHoveredButton, board.holdPressedButton);
         player1ScoreText = board.player1_digit as Text;
         player1Name = board.player_1_name as Group;
+        player1NameText = board.player_1_name_text as Text;
         player2ScoreText = board.player2_digit as Text;
         player2Name = board.player_2_name as Group;
+        player2NameText = board.player_2_name_text as Text;
         sides = Group {
             content: [
                 board.dice1,
@@ -68,16 +76,29 @@ public class DesignerBoardAdapter extends CustomNode {
             ]
         }
         gameOverDialog = board.gameOverDialog as Group;
-//        gameOverDialog.translateX = -1025;
-//        gameOverDialog.translateY = -250;
-        gameOverDialog.visible = true;
         yesButton = createButton(board.win_but_normal, board.win_but_hovered, board.win_but_pressed);
         insert yesButton into gameOverDialog.content;
-//        println("Aligning gameOverDialog");
-//        align(board.player_markers, gameOverDialog);
-//        gameOverDialog.translateX = gameOverDialog.translateX / 2;
-       
+        pigWinsScore = board.pig_wins_score as Text;
+        pigWinsText = board.pig_wins_text as Text;
+
         board.Dice_display.visible = false;
+
+        boardGroup = Group {
+            content: [
+                board.board,
+                playerMarker,
+                board.player_2_name,
+                board.player_1_name,
+                board.dice_table,
+                board.control
+                rollButton,
+                kickButton,
+                punchButton,
+                holdButton,
+                board.Dice_display,
+                sides
+            ]
+        };
 
         var rotateSun = TranslateTransition {
             repeatCount: Timeline.INDEFINITE
@@ -134,7 +155,10 @@ public class DesignerBoardAdapter extends CustomNode {
     public override function create(): Node {
         return Group {
             content: [
-                board.SUN,
+                boardGroup,
+                gameOverDialog,
+
+/*                board.SUN,
              //   sunDial,
                 board.green_plate,
                 board.grass,
@@ -154,10 +178,10 @@ public class DesignerBoardAdapter extends CustomNode {
                 holdButton,
                 board.Dice_display,
                 sides,
-                gameOverDialog
+                gameOverDialog */
             ]
-            translateX: -825
-            translateY: -250
+            translateX: -815
+            translateY: -120
         };
     }
 
@@ -171,26 +195,6 @@ public class DesignerBoardAdapter extends CustomNode {
 
         rotateDie.playFromStart();
     }
-
-    public function switchPlayer() {
-        
-    }
-
-
-    function replaceScoreText( scoreText:Text ) {
-        var newText = Text {
-            font: Font {
-                letterSpacing: 30
-                size: 41
-            }
-            content: scoreText.content
-            x: scoreText.x
-            y: scoreText.y
-            stroke: scoreText.stroke
-        }
-        return newText;
-    }
-
 
     function createButton( normal:Node, hoveredSource:Node, pressedSource:Node ) {
         var hovered = Duplicator.duplicate(hoveredSource);
@@ -229,7 +233,7 @@ public class DesignerBoardAdapter extends CustomNode {
     function align( target:Node, dest:Node ) {
         var destBounds = dest.boundsInScene;
         var targetBounds = target.boundsInScene;
-
+/*
         if (dest.translateX != 0 or dest.translateY != 0) {
             println("**** Before x:{dest.translateX}: y:{dest.translateY}");
         }
@@ -237,12 +241,12 @@ public class DesignerBoardAdapter extends CustomNode {
             println("**** Target x:{target.translateX}: y:{target.translateY}");
         }
         println("*** Target: ({targetBounds.minX}, {targetBounds.minY})");
-
+*/
         dest.translateX = (targetBounds.minX - destBounds.minX) - dest.translateX;
         dest.translateY = dest.translateY + (targetBounds.minY - destBounds.minY);
 
 
-        println("Translating x:{dest.translateX}: y:{dest.translateY}");
+//        println("Translating x:{dest.translateX}: y:{dest.translateY}");
     }
 
 }
