@@ -35,7 +35,13 @@ public class ScoreControl {
     /** Represents the value of this control instance. */
     public var value : Integer = -1 on replace {
         if (value != -1) {
-            text.content = "{value}";
+            if (value < 10) {
+                text.content = "00{value}";
+            } else if (value < 100) {
+                text.content = "0{value}";
+            } else {
+                text.content = "{value}";
+            }
             // when the value is updated, create a small scaling animation
             var t = ScaleTransition {
                 repeatCount: 2

@@ -6,6 +6,8 @@
 
 package net.newfoo.pig;
 
+import javafx.animation.transition.*;
+import javafx.scene.transform.Scale;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
@@ -31,7 +33,7 @@ public class PlayerMarker {
     * use the player1Spot, player2Spot and marker init vars below.
     */
     public-init var group : Group on replace {
-        player1Spot = group.content[0];
+/*        player1Spot = group.content[0];
         player2Spot = group.content[1];
         marker = group.content[2];
 
@@ -40,26 +42,70 @@ public class PlayerMarker {
 
         distance = s2.minY - s1.minY;
         player1Spot.visible = false;
-        player2Spot.visible = false;
+        player2Spot.visible = false; */
     }
 
+    public-init var player1 : Group;
+
+    public-init var player2 : Group;
+
+    var transform = Scale {
+        x: .8, y: .8
+    }
+
+
     /** Used to place the marker when the current turn is player1's turn */
-    public-init var player1Spot : Node;
+//    public-init var player1Spot : Node;
 
     /** Used to place the marker when the current turn is player2's turn */
-    public-init var player2Spot : Node;
+//    public-init var player2Spot : Node;
 
     /** The asset representing the marker. */
-    public-init var marker : Node;
+//    public-init var marker : Node;
 
     /** holds the distance between the player1 and player2 spots */
-    var distance : Number;
+//    var distance : Number;
 
     /** True if the current player is player1, false otherwise. */
     public var isPlayerOne : Boolean on replace {
-        move(isPlayerOne);
+        if (isPlayerOne) {
+            group.content[0].visible = true;
+            group.content[1].visible = false;
+            swap(player1, player2);
+/*            delete transform from player1.transforms;
+            var bounds = player2.boundsInParent;
+            transform.pivotX = bounds.minX + bounds.width / 2;
+            transform.pivotY = bounds.minY + bounds.height / 2;
+            insert transform into player2.transforms;
+            player1.opacity = 1;
+            player2.opacity = .6; */
+        } else {
+            group.content[0].visible = false;
+            group.content[1].visible = true;
+            swap(player2, player1);
+            /*var bounds = player1.boundsInParent;
+            transform.pivotX = bounds.minX + bounds.width / 2;
+            transform.pivotY = bounds.minY + bounds.height / 2;
+            insert transform into player1.transforms;
+            delete transform from player2.transforms;
+            player1.opacity = .6;
+            player2.opacity = 1; */
+        }
+
+//        move(isPlayerOne);
     }
 
+    function swap( node1:Node, node2:Node ) {
+        delete transform from node1.transforms;
+        var bounds = node2.boundsInParent;
+        transform.pivotX = bounds.minX + bounds.width / 2;
+        transform.pivotY = bounds.minY + bounds.height / 2;
+        insert transform into node2.transforms;
+        node1.opacity = 1;
+        node2.opacity = .6;
+    }
+
+/*
     function move( spot1 : Boolean ) {
         var spot : Node = if (spot1) player1Spot else player2Spot;
         println("is spot1 {spot1}");
@@ -67,5 +113,5 @@ public class PlayerMarker {
         var s = spot.boundsInScene;
         marker.translateX = (s.minX + s.width / 2) - (m.minX + m.width / 2);
         marker.translateY = (if (spot1) -1 else 1/2) * distance;
-    }
+    } */
 }
