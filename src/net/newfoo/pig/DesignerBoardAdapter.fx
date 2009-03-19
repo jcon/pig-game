@@ -128,14 +128,11 @@ public class DesignerBoardAdapter extends CustomNode {
                 TranslateTransition {
                     repeatCount: 4
                     autoReverse: true
-                    toY: -3,
-                    byY: 1
-                    toX: -3,
-                    byX: 1
+                    toY: -3, byY: 1
+                    toX: -3, byX: 1
                     duration: 300ms
                     node: board.big_pig_nose;
                 }
-
             ]
         };
         bigNoseWiggle.playFromStart();
